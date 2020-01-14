@@ -80,7 +80,7 @@ class Blockchain {
             block.time = Date.now();
 
             // Hash the block and assign to block's hash attribute
-            block.hash = SHA256(block.height.toString() + block.body + block.time.toString() + block.previousBlockHash);
+            block.hash = SHA256(block.height.toString() + block.body + block.time.toString() + block.previousBlockHash).toString();
 
             // Push the new block onto the blockchain
             self.chain.push(block);
