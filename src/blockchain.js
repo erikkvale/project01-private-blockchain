@@ -64,7 +64,37 @@ class Blockchain {
     _addBlock(block) {
         let self = this;
         return new Promise(async (resolve, reject) => {
-           
+            // Need to check if previous hash/block exists
+            if (self.height === -1) {
+                // There are no blocks yet, so no previous hash, genesis
+                block.previousBlockHash = "";
+            } else if (self.height === 0) {
+                // Special case so index doesn't go out of range below
+                block.previousBlockHash = self.chain[0].hash;
+            } else {
+                // There is a genesis block and at least one other block
+                block.previousBlockHash = self.chain[self.height - 1];
+            }
+            // Prepare other block attributes
+            block.height = self.height + 1;
+            block.time = Date.now();
+
+            // Hash the block and assign to block's hash attribute
+            block.hash = SHA256(block.height.toString() + block.body + block.time.toString() + block.previousBlockHash);
+
+            // Push the new block onto the blockchain
+            self.chain.push(block);
+            
+            // Increment the chain height
+            self.height += 1;
+            
+            let blockAdded = true;
+
+            if (blockAdded) {
+                resolve();
+            } else {
+                reject(new Error("The block could not be added."));
+            }
         });
     }
 
