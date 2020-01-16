@@ -91,7 +91,7 @@ class Blockchain {
             let blockAdded = true;
 
             if (blockAdded) {
-                resolve();
+                resolve(block);
             } else {
                 reject(new Error("The block could not be added."));
             }
@@ -147,9 +147,13 @@ class Blockchain {
                         "star": star
                     }
                     let newblock = new BlockClass.Block(data);
-                    self._addBlock(newblock);
-                    resolve()
+                    let addedBlock = await self._addBlock(newblock);
+                    if (addedBlock) {
+                        resolve()
+                    }
                 }
+            } else {
+                reject(new Error("Time elapsed"))
             }
         });
     }
