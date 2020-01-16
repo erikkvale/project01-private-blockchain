@@ -148,12 +148,13 @@ class Blockchain {
                     }
                     let newblock = new BlockClass.Block(data);
                     let addedBlock = await self._addBlock(newblock);
-                    if (addedBlock) {
-                        resolve()
-                    }
+                    resolve(addedBlock);
+                } else {
+                    let errorMsg = `Not a valid message :${isVerified}`
+                    reject(errorMsg);
                 }
             } else {
-                reject(new Error("Time elapsed"))
+                reject(new Error("Time elapsed"));
             }
         });
     }
