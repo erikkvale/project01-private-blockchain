@@ -61,7 +61,7 @@ class Block {
     getBData() {
         let self = this;
         return new Promise(function(resolve, reject) {
-            let decodedData = JSON.parse(hex2ascii(this.body));
+            let decodedData = JSON.parse(hex2ascii(self.body));
             if (decodedData) {
                 resolve(decodedData);
             } else {
