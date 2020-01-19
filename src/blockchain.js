@@ -73,7 +73,7 @@ class Blockchain {
                 block.previousBlockHash = self.chain[0].hash;
             } else {
                 // There is a genesis block and at least one other block
-                block.previousBlockHash = self.chain[self.height - 1];
+                block.previousBlockHash = self.chain[self.height - 1].hash;
             }
             // Prepare other block attributes
             block.height = self.height + 1;
