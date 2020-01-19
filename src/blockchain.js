@@ -215,7 +215,6 @@ class Blockchain {
                 }
             })
             resolve(stars);
-            // resolve(decodedData);
         });
     }
 
@@ -228,8 +227,23 @@ class Blockchain {
     validateChain() {
         let self = this;
         let errorLog = [];
+        let validBlock = true;
+        let validPreviousBlockHash = true;
         return new Promise(async (resolve, reject) => {
-            
+            self.chain.forEach(function(block, idx) {
+                if (idx === 0) {
+                    validBlock = block.validate();
+                } else {
+                    validBlock = block.validate();
+                    if (block.previousBlockHash != self.chain[idx - 1].hash) {
+                        validPreviousBlockHash = false;
+                    }
+                }
+                if (!validBlock || !validPreviousBlockHash) {
+                    errorLog.push(`Block @ index: ${idx} is invalid.`)
+                }
+            })
+            resolve(errorLog);
         });
     }
 
