@@ -208,7 +208,11 @@ class Blockchain {
                 let decodedData = await block.getBData();
                 if (decodedData.hasOwnProperty("address") && decodedData.hasOwnProperty("star")) {
                     if (decodedData.address === address) {
-                        stars.push(decodedData.star);
+                        let starObj = {
+                            "owner": decodedData.address,
+                            "star": decodedData.star
+                        }
+                        stars.push(starObj);
                     }
                 } else {
                     return;
