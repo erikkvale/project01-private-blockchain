@@ -234,7 +234,7 @@ class Blockchain {
         let validBlock = true;
         let validPreviousBlockHash = true;
         return new Promise(async (resolve, reject) => {
-            self.chain.forEach(function(block, idx) {
+            self.chain.forEach(async function(block, idx) {
                 if (idx === 0) {
                     validBlock = await block.validate();
                 } else {
