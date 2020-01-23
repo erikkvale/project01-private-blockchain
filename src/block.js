@@ -62,10 +62,12 @@ class Block {
         let self = this;
         return new Promise(function(resolve, reject) {
             let decodedData = JSON.parse(hex2ascii(self.body));
-            if (decodedData) {
-                resolve(decodedData);
-            } else {
-                reject(new Error("Failed to decode data"));
+            if (self.height > 0) {
+                if (decodedData) {
+                    resolve(decodedData);
+                } else {
+                    reject(new Error("Falied to decode data."))
+                }
             }
         });
 
